@@ -1,0 +1,12 @@
+services:
+  ws-proxy:
+    build: .
+    image: ghcr.io/vigourpt/openclaw-ws-proxy:latest
+    container_name: openclaw-ws-proxy
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      - GATEWAY_WS=ws://host.docker.internal:45397
+      - PORT=3002
+    network_mode: host
