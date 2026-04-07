@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Minimal WebSocket proxy for OpenClaw Mission Control dashboards",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "setup": "node setup.js"
   },
   "dependencies": {
     "ws": "^8.18.0"

@@ -18,8 +18,8 @@
  *     ghcr.io/vigourpt/openclaw-ws-proxy
  */
 
-const WebSocket = require('ws');
-const http = require('http');
+import { WebSocketServer } from 'ws';
+import http from 'http';
 
 const PORT = parseInt(process.env.PORT || '3002', 10);
 const TARGET = process.env.GATEWAY_WS || 'ws://127.0.0.1:45397';
@@ -81,12 +81,10 @@ function relay(clientWs, targetUrl) {
     gatewayOpen = true;
     log('gateway', `Connected to ${targetUrl}`);
 
-    // Send deferred connect message if we already received one
     if (savedConnect) {
       if (challengeNonce) {
         sendConnect(savedConnect, challengeNonce);
       } else {
-        // Wait up to 3s for challenge nonce
         setTimeout(() => {
           if (!handshakeDone) sendConnect(savedConnect, null);
         }, 3000);
@@ -96,7 +94,6 @@ function relay(clientWs, targetUrl) {
 
   // Gateway → Browser
   gatewayWs.on('message', (data) => {
-    // Capture challenge nonce from gateway
     if (!handshakeDone) {
       try {
         const msg = JSON.parse(data);
@@ -134,7 +131,7 @@ function relay(clientWs, targetUrl) {
         if (msg.type === 'req' && msg.method === 'connect' && msg.params) {
           savedConnect = msg;
           log('client', `Saved connect, waiting for nonce...`);
-          return; // Wait for nonce
+          return;
         }
       } catch {}
     }
