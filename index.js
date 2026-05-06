@@ -20,7 +20,7 @@
  *     ghcr.io/vigourpt/openclaw-ws-proxy
  */
 
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import http from 'http';
 import crypto from 'crypto';
 import fs from 'fs';

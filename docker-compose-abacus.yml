@@ -1,14 +1,14 @@
 services:
-  ws-proxy:
+  abacus-ws-proxy:
     build: .
     image: ghcr.io/vigourpt/openclaw-ws-proxy:latest
-    container_name: openclaw-ws-proxy
+    container_name: abacus-ws-proxy
     restart: unless-stopped
     ports:
-      - "3002:3002"
+      - "3003:3003"
     environment:
       - GATEWAY_WS=ws://127.0.0.1:45397
       - GATEWAY_REMOTE_TOKEN=MzLeAvE5uphx5w6WzwFHxJQdP1s4OalJ
       - INJECT_SCOPES=false
-      - PORT=3002
+      - PORT=3003
     network_mode: host
